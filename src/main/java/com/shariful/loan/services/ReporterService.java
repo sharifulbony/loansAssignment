@@ -2,6 +2,7 @@ package com.shariful.loan.services;
 import com.shariful.loan.dtos.Data;
 import com.shariful.loan.dtos.Loan;
 import com.shariful.loan.dtos.Reporter;
+import com.shariful.loan.interfaces.ReporterInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,15 +11,16 @@ import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 @Service
-public class ReporterService {
+public class ReporterService implements ReporterInterface {
 
     @Autowired
-    public ReporterService() {
+    public ReporterService()  {
     }
 
     @Value("${report.interval}")
     private String interval;
 
+    @Override
     public Reporter getStatistics(){
         List<Loan> reportingLoans=Data.approvedLoans
                 .stream()

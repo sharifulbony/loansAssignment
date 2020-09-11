@@ -14,6 +14,6 @@ public class Customer {
 
     private String id;
     private Loan current;
-    private List<Loan> history=new ArrayList<>();
+    private List<Loan> history;
 
 }

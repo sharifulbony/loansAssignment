@@ -18,14 +18,14 @@ public class DocumentationConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors
-                        .basePackage("com.sharifulbony.api"))
+                        .basePackage("com.shariful.loan"))
                 .paths(PathSelectors.regex("/.*"))
                 .build().apiInfo(apiEndPointsInfo());
     }
 
     private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title("Documentation of Product Inventory Rest API.")
-                .description("Product Inventory Management REST API")
+        return new ApiInfoBuilder().title("Documentation of Loan Management Rest API.")
+                .description("Loan Management REST API")
                 .contact(new Contact("A K M Shariful Islam", "https://www.linkedin.com/in/bonyshariful/", "shariful.bony@gmail.com"))
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")

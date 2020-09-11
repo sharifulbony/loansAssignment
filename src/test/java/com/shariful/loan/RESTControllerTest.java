@@ -1,4 +1,4 @@
-package com.sharifulbony.api;
+package com.shariful.loan;
 
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //

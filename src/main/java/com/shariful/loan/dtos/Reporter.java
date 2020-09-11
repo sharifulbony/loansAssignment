@@ -11,7 +11,7 @@ import java.util.OptionalDouble;
 public class Reporter {
     private Long count;
     private Double sum;
-    private OptionalDouble avg= OptionalDouble.of(0.0);
-    private OptionalDouble max=OptionalDouble.of(0.0);
-    private OptionalDouble min=OptionalDouble.of(0.0);
+    private OptionalDouble avg;
+    private OptionalDouble max;
+    private OptionalDouble min;
 }

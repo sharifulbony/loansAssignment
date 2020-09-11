@@ -15,7 +15,7 @@ public class ApproverService implements ApproverInterface {
 
     @Override
     public ArrayList<Approver> create(String approvers) {
-        String[] approverList = approvers.split(",");
+        String[] approverList = approvers.split(Constants.approversSplitterSymbol);
         ArrayList<Approver> listOfApprovers = new ArrayList<>();
         for (String name : approverList
         ) {
