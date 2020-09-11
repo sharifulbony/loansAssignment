@@ -1,38 +1,29 @@
 package com.shariful.loan.services;
-
 import com.shariful.loan.configurations.Constants;
 import com.shariful.loan.dtos.*;
 import com.shariful.loan.interfaces.CustomerInterface;
 import com.shariful.loan.interfaces.LoanProcessorInterface;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class LoanProcessService implements LoanProcessorInterface {
-
-
     private final CustomerInterface customerService;
 
     public LoanProcessService(CustomerInterface customerService) {
         this.customerService = customerService;
     }
 
-
     @Override
     public void insert(Input input) throws IllegalArgumentException {
         if (checkExisting(input.getCustomerId())) {
             createForExistingCustomer(input);
-
         } else {
             createForNewCustomer(input);
         }
-
     }
 
-    //todo test with wrong customerID -
-    // todo test with manager ID not in list
     @Override
     public void process(String customerId, String managerName, boolean decision) throws IllegalArgumentException, IllegalStateException {
         Customer customer = Data.allData.get(customerId);
@@ -59,7 +50,6 @@ public class LoanProcessService implements LoanProcessorInterface {
         Customer customer = Data.allData.get(input.getCustomerId());
         customer = customerService.update(customer, input);
         Data.allData.put(customer.getId(), customer);
-
     }
 
     private void createForNewCustomer(Input input) {
@@ -67,19 +57,18 @@ public class LoanProcessService implements LoanProcessorInterface {
         Data.allData.put(customer.getId(), customer);
     }
 
-    private void processDecision(Customer customer, String managerName, boolean decision) throws IllegalArgumentException {
+    private void processDecision(Customer customer, String managerName, boolean decision)
+            throws IllegalArgumentException {
         Approver currentApprover = customer.getCurrent().getApprovers()
                 .stream()
                 .filter(manager -> manager.getName().equals(managerName))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Provided manager username is not in approver List!"));
-
-        if (decision == false) {
+        if (!decision) {
             reject(currentApprover, customer);
         } else {
             approve(currentApprover, customer, managerName);
         }
-
     }
 
     private void reject(Approver approver, Customer customer) {
@@ -92,7 +81,6 @@ public class LoanProcessService implements LoanProcessorInterface {
     }
 
     private void approve(Approver currentApprover, Customer customer, String managerName) {
-
         currentApprover.setDecision(Constants.decisions.APPROVED.name());
         currentApprover.setDecisionTimestamp(System.currentTimeMillis());
         customer.getCurrent().setStatus(Constants.decisions.APPROVED.name());
@@ -102,7 +90,6 @@ public class LoanProcessService implements LoanProcessorInterface {
                 .collect(Collectors.toList());
 
         checkOtherApproval(otherApprovers, customer);
-
     }
 
     private void checkOtherApproval(List<Approver> otherApprovers, Customer customer) {
@@ -114,10 +101,6 @@ public class LoanProcessService implements LoanProcessorInterface {
             customer.getHistory().add(customer.getCurrent());
             Data.approvedLoans.add(customer.getCurrent());
             customer.setCurrent(null);
-
         }
-
     }
-
-
 }

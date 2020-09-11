@@ -1,11 +1,11 @@
 package com.shariful.loan.services;
-
 import com.shariful.loan.configurations.Constants;
 import com.shariful.loan.dtos.Approver;
 import com.shariful.loan.interfaces.ApproverInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+
 @Service
 public class ApproverService implements ApproverInterface {
 
@@ -27,6 +27,5 @@ public class ApproverService implements ApproverInterface {
             listOfApprovers.add(approver);
         }
         return listOfApprovers;
-
     }
 }

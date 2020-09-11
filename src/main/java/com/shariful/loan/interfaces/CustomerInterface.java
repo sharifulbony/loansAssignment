@@ -1,5 +1,4 @@
 package com.shariful.loan.interfaces;
-
 import com.shariful.loan.dtos.Customer;
 import com.shariful.loan.dtos.Input;
 

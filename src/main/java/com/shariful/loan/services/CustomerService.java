@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 @Service
 public class CustomerService implements CustomerInterface {
-
     private final LoanCreatorInterface loanCreatorService;
 
     @Autowired

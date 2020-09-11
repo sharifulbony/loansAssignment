@@ -1,5 +1,4 @@
 package com.shariful.loan.handler;
-
 import com.shariful.loan.dtos.ApiError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,43 +18,40 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     protected ResponseEntity<Object> handleInvalidInput(
-            IllegalArgumentException ex) {
-
-        ApiError apiError=new ApiError();
-        apiError.setMessage(ex.getMessage());
+            IllegalArgumentException illegalArgumentException) {
+        ApiError apiError = new ApiError();
+        apiError.setMessage(illegalArgumentException.getMessage());
         apiError.setStatus(HttpStatus.BAD_REQUEST);
-        apiError.setDebugMessage(ex.getLocalizedMessage());
+        apiError.setDebugMessage(illegalArgumentException.getLocalizedMessage());
         return buildResponseEntity(apiError);
     }
 
     @ExceptionHandler(IllegalStateException.class)
     protected ResponseEntity<Object> handleIllegalRequest(
-            IllegalStateException ex) {
-
-        ApiError apiError=new ApiError();
-        apiError.setMessage(ex.getMessage());
+            IllegalStateException illegalStateException) {
+        ApiError apiError = new ApiError();
+        apiError.setMessage(illegalStateException.getMessage());
         apiError.setStatus(HttpStatus.NOT_ACCEPTABLE);
-        apiError.setDebugMessage(ex.getLocalizedMessage());
+        apiError.setDebugMessage(illegalStateException.getLocalizedMessage());
         return buildResponseEntity(apiError);
     }
 
     @Override
-    protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ApiError apiError=new ApiError();
-        apiError.setMessage(ex.getMessage());
+    protected ResponseEntity<Object> handleMissingServletRequestParameter(
+            MissingServletRequestParameterException missingServletRequestParameterException,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setMessage(missingServletRequestParameterException.getMessage());
         apiError.setStatus(HttpStatus.EXPECTATION_FAILED);
-        apiError.setDebugMessage(ex.getLocalizedMessage());
+        apiError.setDebugMessage(missingServletRequestParameterException.getLocalizedMessage());
         return buildResponseEntity(apiError);
     }
-
-
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
-
-
-
 }
 
 

@@ -1,14 +1,11 @@
 package com.shariful.loan.services;
-
 import com.shariful.loan.configurations.Constants;
 import com.shariful.loan.dtos.Data;
 import com.shariful.loan.dtos.Loan;
 import com.shariful.loan.dtos.Reporter;
 import com.shariful.loan.interfaces.ReporterInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
@@ -19,9 +16,6 @@ public class ReporterService implements ReporterInterface {
     @Autowired
     public ReporterService() {
     }
-
-    @Value("${report.interval}")
-    private String interval;
 
     @Override
     public Reporter getStatistics() {
@@ -41,8 +35,6 @@ public class ReporterService implements ReporterInterface {
         } else {
             throw new IllegalArgumentException("No Data found on specified Range!");
         }
-
-
     }
 
     private Long returnCount(List<Loan> loans) {
@@ -58,12 +50,10 @@ public class ReporterService implements ReporterInterface {
     }
 
     private OptionalDouble returnAvg(List<Loan> loans) {
-        OptionalDouble avg;
-        avg = Data.approvedLoans
+        return Data.approvedLoans
                 .stream()
                 .mapToDouble(Loan::getAmount)
                 .average();
-        return avg;
     }
 
     private OptionalDouble returnMax(List<Loan> loans) {

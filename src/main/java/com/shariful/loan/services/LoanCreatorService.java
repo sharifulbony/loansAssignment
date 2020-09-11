@@ -1,5 +1,4 @@
 package com.shariful.loan.services;
-
 import com.shariful.loan.configurations.Constants;
 import com.shariful.loan.dtos.Input;
 import com.shariful.loan.dtos.Loan;
@@ -14,7 +13,6 @@ public class LoanCreatorService implements LoanCreatorInterface {
 
     @Autowired
     public LoanCreatorService(ApproverInterface approverService) {
-
         this.approverService = approverService;
     }
 
@@ -27,6 +25,5 @@ public class LoanCreatorService implements LoanCreatorInterface {
                 .approvers(approverService.create(input.getApprovers()))
                 .build();
         return loan;
-
     }
 }

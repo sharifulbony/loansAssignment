@@ -1,5 +1,4 @@
 package com.shariful.loan.dtos;
-
 import lombok.*;
 
 @Getter

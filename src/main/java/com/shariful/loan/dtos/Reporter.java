@@ -1,6 +1,5 @@
 package com.shariful.loan.dtos;
 import lombok.*;
-
 import java.util.OptionalDouble;
 
 @Getter
