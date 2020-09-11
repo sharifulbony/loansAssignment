@@ -29,7 +29,7 @@ public class LoanController {
 
 
     private final ValidationInterface validationService;
-    private final LoanProcessorInterface loanProcessService ;
+    private final LoanProcessorInterface loanProcessService;
     private final ReporterInterface reporterService;
 
     public LoanController(ValidationInterface validationService, LoanProcessorInterface loanProcessService, ReporterInterface reporterService) {
@@ -44,6 +44,7 @@ public class LoanController {
         return ResponseEntity.ok(Data.allData);
 
     }
+
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/all-loans")
     public ResponseEntity<?> allApprovedLoans() {
@@ -66,7 +67,7 @@ public class LoanController {
         validationService.validate(input);
         loanProcessService.insert(input);
 
-        ApiSuccess apiSuccess= new ApiSuccess(HttpStatus.OK,Constants.successMessage);
+        ApiSuccess apiSuccess = new ApiSuccess(HttpStatus.OK, Constants.successMessage);
         //synchronized thread-pool
         return ResponseEntity.ok(apiSuccess);
     }
@@ -81,9 +82,9 @@ public class LoanController {
             @ApiResponse(code = 417, message = "Input parameter not present"),
 
     })
-    public ResponseEntity<?> approve(@ApiParam(value = Constants.requestLoanCustomerIdParamDescription) @RequestParam String customerId, @ApiParam(value = Constants.requestLoanUsernameParamDescription)@RequestParam String username) throws IllegalArgumentException,IllegalStateException {
+    public ResponseEntity<?> approve(@ApiParam(value = Constants.requestLoanCustomerIdParamDescription) @RequestParam String customerId, @ApiParam(value = Constants.requestLoanUsernameParamDescription) @RequestParam String username) throws IllegalArgumentException, IllegalStateException {
         loanProcessService.process(customerId, username, true);
-        ApiSuccess apiSuccess= new ApiSuccess(HttpStatus.OK,Constants.successMessage);
+        ApiSuccess apiSuccess = new ApiSuccess(HttpStatus.OK, Constants.successMessage);
         return ResponseEntity.ok(apiSuccess);
     }
 
@@ -96,23 +97,20 @@ public class LoanController {
             @ApiResponse(code = 406, message = "Illegal input in request"),
             @ApiResponse(code = 417, message = "Input parameter not present"),
     })
-    public ResponseEntity<?> reject(@ApiParam(value = Constants.requestLoanCustomerIdParamDescription)@RequestParam String customerId, @ApiParam(value = Constants.requestLoanUsernameParamDescription)@RequestParam String username) throws IllegalArgumentException,IllegalStateException {
+    public ResponseEntity<?> reject(@ApiParam(value = Constants.requestLoanCustomerIdParamDescription) @RequestParam String customerId, @ApiParam(value = Constants.requestLoanUsernameParamDescription) @RequestParam String username) throws IllegalArgumentException, IllegalStateException {
         loanProcessService.process(customerId, username, false);
-        ApiSuccess apiSuccess= new ApiSuccess(HttpStatus.OK,Constants.successMessage);
+        ApiSuccess apiSuccess = new ApiSuccess(HttpStatus.OK, Constants.successMessage);
         return ResponseEntity.ok(apiSuccess);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = Constants.statisticsURL)
     @ApiOperation(value = Constants.requestStatisticsDescription, response = Iterable.class)
-    public ResponseEntity<?> statistics(){
+    public ResponseEntity<?> statistics() {
 
         return ResponseEntity.ok(reporterService.getStatistics());
 
     }
-
-
-
 
 
 }

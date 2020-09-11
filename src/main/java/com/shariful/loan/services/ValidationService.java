@@ -16,6 +16,7 @@ public class ValidationService implements ValidationInterface {
     @Autowired
     public ValidationService() {
     }
+
     @Override
     public void validate(Input input) throws IllegalArgumentException, MissingServletRequestParameterException {
 
@@ -27,16 +28,17 @@ public class ValidationService implements ValidationInterface {
 
 
     private void validateKeys(Input input) throws MissingServletRequestParameterException {
-        if(input.getCustomerId()==null){
-            throw new MissingServletRequestParameterException ("customerId","String");
+        if (input.getCustomerId() == null) {
+            throw new MissingServletRequestParameterException("customerId", "String");
         }
-        if(input.getApprovers()==null){
-            throw new MissingServletRequestParameterException ("approvers","String");
+        if (input.getApprovers() == null) {
+            throw new MissingServletRequestParameterException("approvers", "String");
         }
-        if(input.getAmount()==null){
-            throw new MissingServletRequestParameterException ("amount","Double");
+        if (input.getAmount() == null) {
+            throw new MissingServletRequestParameterException("amount", "Double");
         }
     }
+
     private void validateApprover(String approvers) throws IllegalArgumentException {
         if (approvers.equals("")) {
             throw new IllegalArgumentException("Request must have at least one approver!");
@@ -49,11 +51,13 @@ public class ValidationService implements ValidationInterface {
         }
 
     }
+
     private void validateAmount(Double amount) throws IllegalArgumentException {
         if (amount < Constants.minLoanAmount) {
             throw new IllegalArgumentException("Amount must be positive!");
         }
     }
+
     private void validateCustomerId(String customerId) throws IllegalArgumentException {
         if (customerId.length() == Constants.customerIdLength) {
             String[] idParts = customerId.split(Constants.customerIdSplitterSymbol);
@@ -75,6 +79,7 @@ public class ValidationService implements ValidationInterface {
 
         }
     }
+
     private boolean isOnlyNumberAndCharacter(String input, int desiredLength) {
         if (Pattern.matches("[A-Za-z0-9]+", input) && input.length() == desiredLength) {
             return true;

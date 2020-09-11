@@ -5,6 +5,7 @@ import java.util.zip.DeflaterOutputStream;
 public class Constants {
 
     //region policy variable definition
+    public static final long reportTimeInterval=60;
     public static final int customerIdLength=11;
     public static final int customerIdParts=3;
     public static final int customerIdIstPartLength=2;
