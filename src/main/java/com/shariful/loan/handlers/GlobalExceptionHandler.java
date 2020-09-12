@@ -1,4 +1,4 @@
-package com.shariful.loan.handler;
+package com.shariful.loan.handlers;
 import com.shariful.loan.dtos.ApiError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
