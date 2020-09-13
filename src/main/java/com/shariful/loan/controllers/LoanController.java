@@ -1,4 +1,5 @@
 package com.shariful.loan.controllers;
+
 import com.shariful.loan.configurations.Constants;
 import com.shariful.loan.dtos.ApiError;
 import com.shariful.loan.dtos.ApiSuccess;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = Constants.baseURL)
-@Api(value =Constants.baseURLDescription)
+@Api(value = Constants.baseURLDescription)
 public class LoanController {
     private final ValidationInterface validationService;
     private final LoanProcessorInterface loanProcessService;
@@ -23,8 +24,7 @@ public class LoanController {
 
     public LoanController(ValidationInterface validationService,
                           LoanProcessorInterface loanProcessService,
-                          ReporterInterface reporterService)
-    {
+                          ReporterInterface reporterService) {
         this.validationService = validationService;
         this.loanProcessService = loanProcessService;
         this.reporterService = reporterService;
@@ -32,11 +32,11 @@ public class LoanController {
 
     /**
      * Method crates a loan application if the input is correct
-     * @param input  customerId, the Id of the requested customer in defined structure
-     * @Param input  amount, positive requested loan amount
+     *
+     * @param input customerId, the Id of the requested customer in defined structure
      * @param input approvers, comma separated list of approvers
-     * @return Method returns success {@link ApiSuccess} objects if loan has been inserted successfully
      * @return Method returns error with http status code {@link ApiError} objects if loan has error.
+     * @Param input  amount, positive requested loan amount
      */
     @CrossOrigin(origins = "*")
     @PostMapping(value = Constants.loanRequestURL)
@@ -50,8 +50,7 @@ public class LoanController {
     public ResponseEntity<?> incomingApprovalRequest(
             @ApiParam(value = Constants.requestLoanParamDescription)
             @RequestBody Input input)
-            throws IllegalArgumentException, MissingServletRequestParameterException
-    {
+            throws IllegalArgumentException, MissingServletRequestParameterException {
         validationService.validate(input);
         loanProcessService.insert(input);
         ApiSuccess apiSuccess = new ApiSuccess(HttpStatus.OK, Constants.httpStatusOkMessage);
@@ -60,9 +59,9 @@ public class LoanController {
 
     /**
      * Method add an approval to a existing loan application if the input is correct
-     * @param  customerId, the Id of the requested customer in defined structure
-     * @param  username,username of the manager
-     * @return Method returns success {@link ApiSuccess} objects if approval done successfully
+     *
+     * @param customerId,       the Id of the requested customer in defined structure
+     * @param username,username of the manager
      * @return Method returns error with http status code {@link ApiError} objects if input has error.
      */
     @CrossOrigin(origins = "*")
@@ -79,8 +78,7 @@ public class LoanController {
             @RequestParam String customerId,
             @ApiParam(value = Constants.requestLoanUsernameParamDescription)
             @RequestParam String username)
-            throws IllegalArgumentException, IllegalStateException
-    {
+            throws IllegalArgumentException, IllegalStateException {
         loanProcessService.process(customerId, username, true);
         ApiSuccess apiSuccess = new ApiSuccess(HttpStatus.OK, Constants.httpStatusOkMessage);
         return ResponseEntity.ok(apiSuccess);
@@ -88,9 +86,9 @@ public class LoanController {
 
     /**
      * Method add a rejection to a existing loan application if the input is correct
-     * @param  customerId, the Id of the requested customer in defined structure
-     * @param  username,username of the manager
-     * @return Method returns success {@link ApiSuccess} objects if rejection done successfully
+     *
+     * @param customerId,       the Id of the requested customer in defined structure
+     * @param username,username of the manager
      * @return Method returns error with http status code {@link ApiError} objects if input has error.
      */
     @CrossOrigin(origins = "*")
@@ -107,8 +105,7 @@ public class LoanController {
             @RequestParam String customerId,
             @ApiParam(value = Constants.requestLoanUsernameParamDescription)
             @RequestParam String username)
-            throws IllegalArgumentException, IllegalStateException
-    {
+            throws IllegalArgumentException, IllegalStateException {
         loanProcessService.process(customerId, username, false);
         ApiSuccess apiSuccess = new ApiSuccess(HttpStatus.OK, Constants.httpStatusOkMessage);
         return ResponseEntity.ok(apiSuccess);
@@ -116,7 +113,7 @@ public class LoanController {
 
     /**
      * Method returns statistics of the approved loan in a defined time frame
-     * @return Method returns success {@link Report} objects if approval done successfully
+     *
      * @return Method returns error with http status code {@link ApiError} objects there is no data on specified time range.
      */
     @CrossOrigin(origins = "*")
@@ -125,6 +122,4 @@ public class LoanController {
     public ResponseEntity<?> statistics() {
         return ResponseEntity.ok(reporterService.getStatistics());
     }
-
-
 }
