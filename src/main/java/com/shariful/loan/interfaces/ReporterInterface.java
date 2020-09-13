@@ -1,6 +1,6 @@
 package com.shariful.loan.interfaces;
-import com.shariful.loan.dtos.Reporter;
+import com.shariful.loan.dtos.Report;
 
 public interface ReporterInterface {
-     Reporter getStatistics();
+     Report getStatistics();
 }

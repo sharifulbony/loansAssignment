@@ -2,7 +2,7 @@ package com.shariful.loan.services;
 import com.shariful.loan.configurations.Constants;
 import com.shariful.loan.dtos.Data;
 import com.shariful.loan.dtos.Loan;
-import com.shariful.loan.dtos.Reporter;
+import com.shariful.loan.dtos.Report;
 import com.shariful.loan.interfaces.ReporterInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,20 +18,20 @@ public class ReporterService implements ReporterInterface {
     }
 
     @Override
-    public Reporter getStatistics() {
+    public Report getStatistics() {
         List<Loan> reportingLoans = Data.approvedLoans
                 .stream()
                 .filter(t -> t.getTimestamp() >= System.currentTimeMillis() - (Constants.reportTimeInterval * 1000))
                 .collect(Collectors.toList());
         if (reportingLoans.size() > 0) {
-            Reporter reporter = Reporter.builder()
+            Report report = Report.builder()
                     .count(returnCount(reportingLoans))
                     .sum(returnSum(reportingLoans))
                     .avg(returnAvg(reportingLoans))
                     .max(returnMax(reportingLoans))
                     .min(returnMin(reportingLoans))
                     .build();
-            return reporter;
+            return report;
         } else {
             throw new IllegalArgumentException("No Data found on specified Range!");
         }

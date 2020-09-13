@@ -7,7 +7,7 @@ import java.util.OptionalDouble;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Reporter {
+public class Report {
     private Long count;
     private Double sum;
     private OptionalDouble avg;

@@ -1,5 +1,4 @@
 package com.shariful.loan.configurations;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -24,7 +23,8 @@ public class DocumentationConfig {
     }
 
     private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title("Documentation of Loan Management Rest API.")
+        return new ApiInfoBuilder()
+                .title("Documentation of Loan Management Rest API.")
                 .description("Loan Management REST API")
                 .contact(new Contact("A K M Shariful Islam", "https://www.linkedin.com/in/bonyshariful/", "shariful.bony@gmail.com"))
                 .license("Apache 2.0")

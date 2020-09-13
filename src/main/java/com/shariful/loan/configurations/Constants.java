@@ -1,7 +1,6 @@
 package com.shariful.loan.configurations;
 
 public class Constants {
-
     //region policy variable definition
     public static final long reportTimeInterval=60;
     public static final int customerIdLength=11;

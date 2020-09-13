@@ -87,10 +87,22 @@ public class ServiceTest {
     }
     @SneakyThrows
     @Test
-    public void inputValidationTest(){
-        assertThrows(IllegalArgumentException.class, () ->validationService.validate(testCase3));
+    public void inputValidationInvalidCustomerIdTest(){
+        assertThrows(IllegalArgumentException.class, () ->validationService.validate(testCase3));;
+    }
+    @SneakyThrows
+    @Test
+    public void inputValidationInvalidAmountTest(){
         assertThrows(IllegalArgumentException.class, () ->validationService.validate(testCase4));
+    }
+    @SneakyThrows
+    @Test
+    public void inputValidationInvalidApproversTest(){
         assertThrows(IllegalArgumentException.class, () ->validationService.validate(testCase5));
+    }
+    @SneakyThrows
+    @Test
+    public void inputValidationParameterNotPresentTest(){
         assertThrows(MissingServletRequestParameterException.class, () ->validationService.validate(testCase6));
     }
     @Test
@@ -108,16 +120,16 @@ public class ServiceTest {
                 Data.allData.get(testCase1.getCustomerId()).getCurrent().getApprovers().get(1).getName(),true);
         loanProcessService.process(Data.allData.get(testCase1.getCustomerId()).getId(),
                 Data.allData.get(testCase1.getCustomerId()).getCurrent().getApprovers().get(2).getName(),true);
-        Reporter reporter=reporterService.getStatistics();
+        Report report =reporterService.getStatistics();
         Long count= Long.valueOf(2);
         Double sum=300.0;
         OptionalDouble avg= OptionalDouble.of(150.0);
         OptionalDouble max= OptionalDouble.of(200.0);
         OptionalDouble min= OptionalDouble.of(100.0);
-        assertEquals(reporter.getCount(),count);
-        assertEquals(reporter.getSum(), sum);
-        assertEquals(reporter.getAvg(),avg);
-        assertEquals(reporter.getMax(),max);
-        assertEquals(reporter.getMin(),min);
+        assertEquals(report.getCount(),count);
+        assertEquals(report.getSum(), sum);
+        assertEquals(report.getAvg(),avg);
+        assertEquals(report.getMax(),max);
+        assertEquals(report.getMin(),min);
     }
 }
