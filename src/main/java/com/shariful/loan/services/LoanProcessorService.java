@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class LoanProcessService implements LoanProcessorInterface {
+public class LoanProcessorService implements LoanProcessorInterface {
     private final CustomerInterface customerService;
 
-    public LoanProcessService(CustomerInterface customerService) {
+    public LoanProcessorService(CustomerInterface customerService) {
         this.customerService = customerService;
     }
 

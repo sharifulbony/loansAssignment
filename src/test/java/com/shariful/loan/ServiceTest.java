@@ -17,7 +17,7 @@ public class ServiceTest {
     static ApproverService approverService;
     static LoanCreatorService loanCreatorService;
     static CustomerService customerService;
-    static LoanProcessService loanProcessService;
+    static LoanProcessorService loanProcessService;
     static ValidationService validationService;
     static ReporterService reporterService;
     static Input testCase1;
@@ -32,7 +32,7 @@ public class ServiceTest {
         approverService=new ApproverService();
         loanCreatorService=new LoanCreatorService(approverService);
         customerService=new CustomerService(loanCreatorService);
-        loanProcessService=new LoanProcessService(customerService);
+        loanProcessService=new LoanProcessorService(customerService);
         validationService=new ValidationService();
         reporterService=new ReporterService();
         testCase1=new Input("12-1234-123", (double) 200,"a,b");
